@@ -3,9 +3,17 @@
     <img src="{{ "svg/menu.svg" | relURL }}" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>{{ partial "docs/title" . }}</strong>
+  <strong>{{ if .Params.parent_title_in_header}}
+    {{ with .GetPage "_index.md" }}<a href="{{ .Permalink }}">{{.Title }}</a>{{ end }}
+    {{else}}
+    <a href="{{ .Site.BaseURL }}">Home</a>
+    {{end}}
+  </strong>
 
+  {{if or .Params.bookToc .Site.Params.BookToC}}
   <label for="toc-control">
     <img src="{{ "svg/toc.svg" | relURL }}" class="book-icon" alt="Table of Contents" />
   </label>
+  {{end}}
+
 </div>
