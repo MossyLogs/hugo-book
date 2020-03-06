@@ -3,7 +3,10 @@
     <img src="{{ "svg/menu.svg" | relURL }}" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>{{ if .Params.parent_title_in_header}}
+  <strong>
+    {{ if .Params.is_home}}
+    <a href="{{ "/posts" | relURL }}">Blog</a>
+    {{else if .Params.parent_title_in_header}}
     {{ with .GetPage "_index.md" }}<a href="{{ .Permalink }}">{{.Title }}</a>{{ end }}
     {{else}}
     <a href="{{ .Site.BaseURL }}">Home</a>
