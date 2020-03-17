@@ -1,0 +1,36 @@
+{{ if .Params.list_section }}
+Chapter List:
+<ol>
+    <!-- {{ $section := where $.Site.Pages "Section" .CurrentSection}} -->
+    {{ range where .Pages "Section" .Section }}
+    <!-- in range -->
+    <li><a href="{{ .Permalink | relURL }}" title="{{ .Title }}">{{ .Title }}</a></li>
+    {{ end }}
+</ol>
+{{ end}}
+
+<!-- {{ if .PrevInSection }}
+      <a href="{{ .PrevInSection.Permalink }}">
+        Prev: {{ .PrevInSection.Title }} </a>
+      {{ end }}
+
+      {{ if .NextInSection }}
+      <a href="{{ .NextInSection.Permalink }}"> Next: {{ .NextInSection.Title }}</a>
+      {{ end }} -->
+
+{{ $currentPage := . }}
+{{ range where .Site.Pages.ByDate "Section" .Section}}
+{{ if eq .RelPermalink $currentPage.RelPermalink }}
+
+{{if .NextInSection}}
+<div style="float: left;">
+    <a class="book-btn" href="{{.NextInSection.RelPermalink}}">Previous</a>
+</div>
+{{end}}
+{{if .PrevInSection}}
+<div style="float: right;">
+    <a class="book-btn" href="{{.PrevInSection.RelPermalink}}">Next</a>
+</div>
+{{end}}
+{{ end }}
+{{ end }}
